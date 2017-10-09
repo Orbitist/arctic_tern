@@ -24,6 +24,8 @@
 		<script src="plugins/lightbox/js/lightbox.min.js"></script>
 		<link rel="stylesheet" type="text/css" href="plugins/lightbox/css/lightbox.css">
 
+		<!-- Twitter Widjet Script -->
+	  <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
     	<!-- Talkie by Kiln.it -->
     	<link rel="stylesheet" type="text/css" href="http://orbitist.s3.amazonaws.com/cdn/talkie-leaflet/talkie.css">
@@ -150,9 +152,11 @@ var orbitistIcon = L.icon({
 
 // ADVANCED: This tells the map what goes in popups.
 function orbitistPopup(feature, layer) {
-    // does this feature have a property named popupContent?
-    if (feature.properties && feature.properties.name) {
-        layer.bindPopup('<div class="leaflet-popup-content" style="width: 301px;"><a href="' + feature.properties.point_image + '" data-lightbox="' + feature.properties.point_position_number + '" data-title="' + feature.properties.point_image_caption + '"><img src="' + feature.properties.point_popup_image + '" width="301px" height="200px"><div class="popupimage-expand"><span class="fa fa-expand"></span></div></a><div class="popupbody"><div class="popuptitle"><h3>' + feature.properties.point_title + '</h3></div><p>' + feature.properties.point_body + '</p>' + feature.properties.point_links + '</div></div>', {closeButton: true});
+		if (feature.properties.point_image.length > 10) {
+	    layer.bindPopup('<div class="leaflet-popup-content" style="width: 301px;"><a href="' + feature.properties.point_image + '" data-lightbox="' + feature.properties.point_position_number + '" data-title="' + feature.properties.point_image_caption + '"><img src="' + feature.properties.point_popup_image + '" width="301px" height="200px"><div class="popupimage-expand"><span class="fa fa-expand"></span></div></a><div class="popupbody"><div class="popuptitle"><h3>' + feature.properties.point_title + '</h3></div><p>' + feature.properties.point_body + '</p>' + feature.properties.point_links + '</div></div>', {closeButton: true});
+		}
+		else {
+        layer.bindPopup('<div class="leaflet-popup-content" style="width: 301px;"><div class="popupbody"><div class="popuptitle"><h3>' + feature.properties.point_title + '</h3></div><p>' + feature.properties.point_body + '</p>' + feature.properties.point_links + '</div></div>', {closeButton: true});
     }
 }
 
@@ -228,5 +232,12 @@ cartodb.createLayer(map, 'http://orbitist.cartodb.com/api/v2/viz/040ba3cc-0252-1
 
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+<script>
+window.setInterval(function(){
+  twttr.widgets.load()
+}, 500);
+</script>
+
   	</body>
 </html>
